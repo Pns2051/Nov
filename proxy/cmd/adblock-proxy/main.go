@@ -45,7 +45,12 @@ func main() {
 		config.FallbackBlocklistURL,
 	})
 
-	if *mode == "native" {
+	isNative := *mode == "native"
+	if len(flag.Args()) > 0 && len(flag.Arg(0)) > 15 && flag.Arg(0)[:17] == "chrome-extension:" {
+		isNative = true
+	}
+
+	if isNative {
 		native.RunNativeHost(adBlockerProxy)
 	} else {
 		go func() {
