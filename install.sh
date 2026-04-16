@@ -164,16 +164,48 @@ EOF
         echo "Please configure your system proxy manually to 127.0.0.1:8080."
     fi
 
-    # Install CA
-    echo "Installing CA Certificate. You may be prompted for your password."
+    # Install CA into system store
+    echo "Installing CA Certificate into system store..."
     if [ -d "/usr/local/share/ca-certificates/" ]; then
         sudo cp "$INSTALL_DIR/ca-cert.pem" /usr/local/share/ca-certificates/adblock-proxy.crt
         sudo update-ca-certificates
     elif [ -d "/usr/share/pki/trust/anchors/" ]; then
         sudo cp "$INSTALL_DIR/ca-cert.pem" /usr/share/pki/trust/anchors/adblock-proxy.pem
         sudo update-ca-trust
+    fi
+
+    # Install CA into Chrome/Chromium NSS database (Chrome does NOT use system store on Linux)
+    echo "Installing CA Certificate into Chrome/Chromium certificate store..."
+    if ! command -v certutil >/dev/null 2>&1; then
+        echo "Installing libnss3-tools (needed to configure Chrome certificates)..."
+        sudo apt-get install -y -q libnss3-tools 2>/dev/null || \
+        sudo dnf install -y nss-tools 2>/dev/null || \
+        sudo pacman -S --noconfirm nss 2>/dev/null || \
+        echo "Warning: Could not install certutil. Please install libnss3-tools manually."
+    fi
+
+    if command -v certutil >/dev/null 2>&1; then
+        # Chrome uses ~/.pki/nssdb
+        NSS_DB="$HOME/.pki/nssdb"
+        if [ ! -d "$NSS_DB" ]; then
+            mkdir -p "$NSS_DB"
+            certutil -d sql:"$NSS_DB" -N --empty-password
+        fi
+        # Remove old cert if exists, then add fresh
+        certutil -d sql:"$NSS_DB" -D -n "AdBlockProxy-CA" 2>/dev/null || true
+        certutil -d sql:"$NSS_DB" -A -t "CT,," -n "AdBlockProxy-CA" -i "$INSTALL_DIR/ca-cert.pem"
+        echo "CA installed into Chrome NSS database."
+
+        # Also install for Chromium if it has its own NSS db
+        CHROMIUM_NSS_DB="$HOME/.config/chromium/Default"
+        if [ -d "$CHROMIUM_NSS_DB" ]; then
+            certutil -d sql:"$CHROMIUM_NSS_DB" -D -n "AdBlockProxy-CA" 2>/dev/null || true
+            certutil -d sql:"$CHROMIUM_NSS_DB" -A -t "CT,," -n "AdBlockProxy-CA" -i "$INSTALL_DIR/ca-cert.pem" 2>/dev/null && \
+            echo "CA also installed into Chromium NSS database." || true
+        fi
     else
-        echo "Could not identify CA cert dir. Please install $INSTALL_DIR/ca-cert.pem manually."
+        echo "Warning: certutil not available. You may need to manually trust the CA in Chrome settings."
+        echo "Go to chrome://settings/certificates and import: $INSTALL_DIR/ca-cert.pem"
     fi
 
     # Systemd Service
