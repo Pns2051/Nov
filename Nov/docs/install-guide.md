@@ -4,7 +4,7 @@ To install the ad-blocker system on your machine:
 
 1. **Install the Browser Extension**:
    - Load the unpacked extension from the `extension` directory into Chrome.
-   - Note the Extension ID. (If not already `aaaaaaaaaaaaaaaaaa`, you may need to update `installer/install.sh` and repackage).
+   - Note the Extension ID. (If not already `aaaaaaaaaaaaaaaaaa`, you may need to update `install.sh` and repackage).
 
 2. **Run the Installer**:
    - Open the extension popup.

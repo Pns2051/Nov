@@ -38,8 +38,8 @@ jobs:
             dist/adblock-proxy-linux-amd64
             dist/adblock-proxy-darwin-amd64
             dist/adblock-proxy-windows-amd64.exe
-            installer/install.sh
-            installer/install.ps1
+            install.sh
+            install.ps1
             blocklist/blocklist.txt
             version.txt
         env:
