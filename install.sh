@@ -193,14 +193,14 @@ EOF
         fi
         # Remove old cert if exists, then add fresh
         certutil -d sql:"$NSS_DB" -D -n "AdBlockProxy-CA" 2>/dev/null || true
-        certutil -d sql:"$NSS_DB" -A -t "CT,," -n "AdBlockProxy-CA" -i "$INSTALL_DIR/ca-cert.pem"
+        certutil -d sql:"$NSS_DB" -A -t "CT,C,C" -n "AdBlockProxy-CA" -i "$INSTALL_DIR/ca-cert.pem"
         echo "CA installed into Chrome NSS database."
 
         # Also install for Chromium if it has its own NSS db
         CHROMIUM_NSS_DB="$HOME/.config/chromium/Default"
         if [ -d "$CHROMIUM_NSS_DB" ]; then
             certutil -d sql:"$CHROMIUM_NSS_DB" -D -n "AdBlockProxy-CA" 2>/dev/null || true
-            certutil -d sql:"$CHROMIUM_NSS_DB" -A -t "CT,," -n "AdBlockProxy-CA" -i "$INSTALL_DIR/ca-cert.pem" 2>/dev/null && \
+            certutil -d sql:"$CHROMIUM_NSS_DB" -A -t "CT,C,C" -n "AdBlockProxy-CA" -i "$INSTALL_DIR/ca-cert.pem" 2>/dev/null && \
             echo "CA also installed into Chromium NSS database." || true
         fi
     else

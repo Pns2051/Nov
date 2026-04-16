@@ -39,6 +39,7 @@ func LoadOrCreateCA(certPath, keyPath string) (*tls.Certificate, error) {
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
 			Organization: []string{"System AdBlocker CA"},
+			CommonName:   "System AdBlocker Root",
 		},
 		NotBefore:             notBefore,
 		NotAfter:              notAfter,

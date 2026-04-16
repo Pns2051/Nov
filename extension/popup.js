@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const githubUser = "Pns2051";
 
   chrome.runtime.sendMessage({ action: 'getOnboardingStatus' }, (status) => {
-    if (status.onboardingCompleted) {
+    if (status && status.onboardingCompleted) {
       showMainView();
     } else {
       showOnboardingView();
