@@ -14,6 +14,10 @@ import (
 )
 
 func main() {
+	f, _ := os.OpenFile("/tmp/adblock_args.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	fmt.Fprintf(f, "Args: %v\n", os.Args)
+	f.Close()
+
 	mode := flag.String("mode", "proxy", "Run mode: proxy or native")
 	generateCA := flag.Bool("generate-ca", false, "Generate CA certificate and key, then exit")
 	flag.Parse()
