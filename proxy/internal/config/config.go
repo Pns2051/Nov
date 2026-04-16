@@ -9,10 +9,10 @@ const (
 )
 
 var (
-    PrimaryBlocklistURL   = "https://cdn.jsdelivr.net/gh/Pns2051/Nov@main/blocklist.txt"
+    PrimaryBlocklistURL   = "https://raw.githubusercontent.com/Pns2051/Nov/main/blocklist/blocklist.txt"
     FallbackBlocklistURL  = "https://github.com/Pns2051/Nov/releases/latest/download/blocklist.txt"
-    PrimaryVersionURL     = "https://cdn.jsdelivr.net/gh/Pns2051/Nov@main/version.txt"
+    PrimaryVersionURL     = "https://raw.githubusercontent.com/Pns2051/Nov/main/version.txt"
     FallbackVersionURL    = "https://github.com/Pns2051/Nov/releases/latest/download/version.txt"
-    PrimaryBinaryURL      = "https://cdn.jsdelivr.net/gh/Pns2051/Nov@main/adblock-proxy-%s-%s"
+    PrimaryBinaryURL      = "https://raw.githubusercontent.com/Pns2051/Nov/main/dist/adblock-proxy-%s-%s"
     FallbackBinaryURL     = "https://github.com/Pns2051/Nov/releases/latest/download/adblock-proxy-%s-%s"
 )

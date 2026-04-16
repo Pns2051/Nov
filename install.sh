@@ -31,30 +31,34 @@ BINARY_FILENAME="$BINARY_NAME-$OS-$ARCH"
 
 download() {
     local filename=$(basename "$1")
-    local url_jsdelivr="https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@main/$1"
     local url_raw="https://raw.githubusercontent.com/$GITHUB_USER/Nov/main/$1"
     local url_github="https://github.com/$GITHUB_USER/Nov/releases/$VERSION/download/$filename"
+    local url_jsdelivr="https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@main/$1"
     
     echo "Downloading $1..."
-    if curl -fsSL --connect-timeout 10 --max-time 60 "$url_jsdelivr" -o "$2"; then
-        return 0
-    fi
     
-    echo "JSDelivr failed, trying GitHub Raw..."
+    # Try GitHub Raw first (no cache or very short cache)
     if curl -fsSL --connect-timeout 10 --max-time 60 "$url_raw" -o "$2"; then
         return 0
     fi
     
+    # Try GitHub Releases (for versioned binaries)
     echo "GitHub Raw failed, trying GitHub Releases..."
     if curl -fsSL --connect-timeout 10 --max-time 60 "$url_github" -o "$2"; then
+        return 0
+    fi
+
+    # JSDelivr as a last resort
+    echo "GitHub Releases failed, trying JSDelivr..."
+    if curl -fsSL --connect-timeout 10 --max-time 60 "$url_jsdelivr" -o "$2"; then
         return 0
     fi
     
     echo "Error: Failed to download $1 from all sources."
     echo "Checked:"
-    echo "  - $url_jsdelivr"
     echo "  - $url_raw"
     echo "  - $url_github"
+    echo "  - $url_jsdelivr"
     return 1
 }
 

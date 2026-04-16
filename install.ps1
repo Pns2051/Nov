@@ -7,12 +7,18 @@ $BINARY_NAME = "adblock-proxy-windows-amd64.exe"
 $EXTENSION_ID = "aaaaaaaaaaaaaaaaaa"
 
 function Download-File {
-    param([string]$UrlJsDelivr, [string]$UrlGithub, [string]$Destination)
+    param([string]$UrlRaw, [string]$UrlGithub, [string]$Destination)
     try {
-        Invoke-WebRequest -Uri $UrlJsDelivr -OutFile $Destination -UseBasicParsing -TimeoutSec 60
+        # Try GitHub Raw first
+        Invoke-WebRequest -Uri $UrlRaw -OutFile $Destination -UseBasicParsing -TimeoutSec 60
     } catch {
-        Write-Host "Primary download failed, trying fallback..."
-        Invoke-WebRequest -Uri $UrlGithub -OutFile $Destination -UseBasicParsing -TimeoutSec 60
+        Write-Host "Primary download failed (GitHub Raw), trying fallback (GitHub Releases)..."
+        try {
+            Invoke-WebRequest -Uri $UrlGithub -OutFile $Destination -UseBasicParsing -TimeoutSec 60
+        } catch {
+             Write-Host "All downloads failed."
+             throw
+        }
     }
 }
 
@@ -22,11 +28,11 @@ if (-not (Test-Path -Path $INSTALL_DIR)) {
 Set-Location -Path $INSTALL_DIR
 
 Write-Host "Downloading proxy binary..."
-Download-File -UrlJsDelivr "https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@$VERSION/dist/$BINARY_NAME" -UrlGithub "https://github.com/$GITHUB_USER/Nov/releases/$VERSION/download/$BINARY_NAME" -Destination "$INSTALL_DIR\$BINARY_NAME"
+Download-File -UrlRaw "https://raw.githubusercontent.com/$GITHUB_USER/Nov/main/dist/$BINARY_NAME" -UrlGithub "https://github.com/$GITHUB_USER/Nov/releases/$VERSION/download/$BINARY_NAME" -Destination "$INSTALL_DIR\$BINARY_NAME"
 
 Write-Host "Downloading blocklist..."
 try {
-    Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@$VERSION/blocklist/blocklist.txt" -OutFile "$INSTALL_DIR\blocklist.txt" -UseBasicParsing
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/$GITHUB_USER/Nov/main/blocklist/blocklist.txt" -OutFile "$INSTALL_DIR\blocklist.txt" -UseBasicParsing
 } catch {
     Write-Host "Failed to download blocklist. It will be generated automatically later."
 }

@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.runtime.sendMessage({ action: 'getOS' }, (info) => {
       let command = "";
       if (info.os === 'mac' || info.os === 'linux') {
-        command = `curl -fsSL https://cdn.jsdelivr.net/gh/${githubUser}/Nov@main/install.sh | bash`;
+        command = `curl -fsSL https://raw.githubusercontent.com/${githubUser}/Nov/main/install.sh | bash`;
       } else if (info.os === 'win') {
-        command = `iwr -useb https://cdn.jsdelivr.net/gh/${githubUser}/Nov@main/install.ps1 | iex`;
+        command = `iwr -useb https://raw.githubusercontent.com/${githubUser}/Nov/main/install.ps1 | iex`;
       } else {
-        command = `curl -fsSL https://cdn.jsdelivr.net/gh/${githubUser}/Nov@main/install.sh | bash`;
+        command = `curl -fsSL https://raw.githubusercontent.com/${githubUser}/Nov/main/install.sh | bash`;
       }
       osCommandEl.textContent = command;
     });
