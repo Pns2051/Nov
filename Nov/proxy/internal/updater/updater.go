@@ -11,11 +11,11 @@ import (
 )
 
 func CheckAndUpdate(currentVersion string) error {
-	primaryVersionURL := "https://cdn.jsdelivr.net/gh/Pns2051/adblock-system@latest/version.txt"
-	fallbackVersionURL := "https://github.com/Pns2051/adblock-system/releases/latest/download/version.txt"
+	primaryVersionURL := "https://cdn.jsdelivr.net/gh/Pns2051/Nov@latest/version.txt"
+	fallbackVersionURL := "https://github.com/Pns2051/Nov/releases/latest/download/version.txt"
 
-	primaryBinaryURL := "https://cdn.jsdelivr.net/gh/Pns2051/adblock-system@latest/adblock-proxy-%s-%s"
-	fallbackBinaryURL := "https://github.com/Pns2051/adblock-system/releases/latest/download/adblock-proxy-%s-%s"
+	primaryBinaryURL := "https://cdn.jsdelivr.net/gh/Pns2051/Nov@latest/adblock-proxy-%s-%s"
+	fallbackBinaryURL := "https://github.com/Pns2051/Nov/releases/latest/download/adblock-proxy-%s-%s"
 
 	var version string
 	for _, u := range []string{primaryVersionURL, fallbackVersionURL} {

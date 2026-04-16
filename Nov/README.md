@@ -1,6 +1,6 @@
-# AdBlock System
+# Nov
 
-A production-ready cross-platform ad-blocking system that bypasses Chrome Manifest V3 limitations by routing through a locally hosted proxy server. Includes a Chrome extension for easy management and control using native messaging.
+A production-ready cross-platform ad-blocking system that bypasses Chrome Manifest V3 limitations by routing through a locally hosted proxy server.
 
 ## Features
 

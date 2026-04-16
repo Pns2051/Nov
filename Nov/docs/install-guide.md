@@ -14,7 +14,7 @@ To install the ad-blocker system on your machine:
 
 3. **Verify Connection**:
    - Return to the browser extension and click **Check Connection**.
-   - If successful, click **Finish Setup**. You are now protected!
+   - If successful, click **Finish Setup**. You are now protected by **Nov**!
 
 ## Manual Blocklist Updates
 By default, the proxy fetches updates periodically. You can manually force an update from the extension's main interface.

@@ -1,4 +1,4 @@
-module github.com/Pns2051/adblock-system/proxy
+module github.com/Pns2051/Nov/proxy
 
 go 1.23.0
 

@@ -7,10 +7,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/Pns2051/adblock-system/proxy/internal/config"
-	"github.com/Pns2051/adblock-system/proxy/internal/native"
-	"github.com/Pns2051/adblock-system/proxy/internal/proxy"
-	"github.com/Pns2051/adblock-system/proxy/internal/updater"
+	"github.com/Pns2051/Nov/proxy/internal/config"
+	"github.com/Pns2051/Nov/proxy/internal/native"
+	"github.com/Pns2051/Nov/proxy/internal/proxy"
+	"github.com/Pns2051/Nov/proxy/internal/updater"
 )
 
 func main() {

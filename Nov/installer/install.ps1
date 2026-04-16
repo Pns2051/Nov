@@ -22,11 +22,11 @@ if (-not (Test-Path -Path $INSTALL_DIR)) {
 Set-Location -Path $INSTALL_DIR
 
 Write-Host "Downloading proxy binary..."
-Download-File -UrlJsDelivr "https://cdn.jsdelivr.net/gh/$GITHUB_USER/adblock-system@$VERSION/dist/$BINARY_NAME" -UrlGithub "https://github.com/$GITHUB_USER/adblock-system/releases/$VERSION/download/$BINARY_NAME" -Destination "$INSTALL_DIR\$BINARY_NAME"
+Download-File -UrlJsDelivr "https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@$VERSION/dist/$BINARY_NAME" -UrlGithub "https://github.com/$GITHUB_USER/Nov/releases/$VERSION/download/$BINARY_NAME" -Destination "$INSTALL_DIR\$BINARY_NAME"
 
 Write-Host "Downloading blocklist..."
 try {
-    Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/gh/$GITHUB_USER/adblock-system@$VERSION/blocklist/blocklist.txt" -OutFile "$INSTALL_DIR\blocklist.txt" -UseBasicParsing
+    Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@$VERSION/blocklist/blocklist.txt" -OutFile "$INSTALL_DIR\blocklist.txt" -UseBasicParsing
 } catch {
     Write-Host "Failed to download blocklist. It will be generated automatically later."
 }
