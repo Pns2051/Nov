@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy2IuxIe95ETZ6ST2uuxcSvS8ObmT5YC5Dtcg5viE53uWxJ3649LA3LoySHnzIKhGR6IvAH64ryJayEKf0Jt/xqfXyATJbYhip2xdpeEAgAZh3KxiPZXXtI1LeuL3NqNVUl2/zlxFIDWlAiWAFF6iVulhKcVMPF8jbxzNDADtJIqH3F/nytXTXKXBev5G7dvAATRNdYshJY6zMwy6blQuWQNyunlx3rherDr9aqzSUvTd8BR7actPmrdFbeDd1MEUNSuCOV7rcToAJ5qY6klvUPEMHwu88kK5+GqtWLA9+NyET/rYtRRbxzGYzkMy3S7CSeNAXjilVj8TkyQxtzeqIQIDAQAB",
   "name": "System AdBlocker Controller",
   "version": "1.0.0",
   "description": "Controls the system-level ad blocker",

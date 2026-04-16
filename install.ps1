@@ -4,7 +4,7 @@ $GITHUB_USER = "Pns2051"
 $VERSION = "latest"
 $INSTALL_DIR = "$env:LOCALAPPDATA\AdblockProxy"
 $BINARY_NAME = "adblock-proxy-windows-amd64.exe"
-$EXTENSION_ID = "aaaaaaaaaaaaaaaaaa"
+$EXTENSION_ID = "jnldlekgmdndcdbddhhibfnldkbphoeo"
 
 function Download-File {
     param([string]$UrlRaw, [string]$UrlGithub, [string]$Destination)

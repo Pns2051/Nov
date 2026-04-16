@@ -5,7 +5,7 @@ GITHUB_USER="Pns2051"
 VERSION="latest"
 INSTALL_DIR="$HOME/.adblock-proxy"
 BINARY_NAME="adblock-proxy"
-EXTENSION_ID="aaaaaaaaaaaaaaaaaa"
+EXTENSION_ID="jnldlekgmdndcdbddhhibfnldkbphoeo"
 
 # Detect OS
 OS=$(uname -s)
