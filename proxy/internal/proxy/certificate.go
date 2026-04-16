@@ -3,6 +3,7 @@ package proxy
 import (
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/sha1"
 	"crypto/tls"
 	"crypto/x509"
 	"crypto/x509/pkix"
@@ -35,18 +36,28 @@ func LoadOrCreateCA(certPath, keyPath string) (*tls.Certificate, error) {
 		return nil, fmt.Errorf("failed to generate serial number: %w", err)
 	}
 
+	spki, _ := x509.MarshalPKIXPublicKey(&priv.PublicKey)
+	skid := sha1.Sum(spki)
+
 	template := x509.Certificate{
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
 			Organization: []string{"System AdBlocker CA"},
 			CommonName:   "System AdBlocker Root",
 		},
+		Issuer: pkix.Name{
+			Organization: []string{"System AdBlocker CA"},
+			CommonName:   "System AdBlocker Root",
+		},
 		NotBefore:             notBefore,
 		NotAfter:              notAfter,
-		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageDigitalSignature,
+		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth, x509.ExtKeyUsageClientAuth},
 		BasicConstraintsValid: true,
 		IsCA:                  true,
+		MaxPathLenZero:        false,
+		MaxPathLen:            2,
+		SubjectKeyId:          skid[:],
 	}
 
 	derBytes, err := x509.CreateCertificate(rand.Reader, &template, &template, &priv.PublicKey, priv)
