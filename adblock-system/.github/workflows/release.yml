@@ -1,0 +1,46 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Build all binaries
+        run: |
+          cd proxy
+          make build-all
+
+      - name: Generate blocklist
+        run: |
+          cd blocklist
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Create version file
+        run: echo "${GITHUB_REF#refs/tags/v}" > version.txt
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/adblock-proxy-linux-amd64
+            dist/adblock-proxy-darwin-amd64
+            dist/adblock-proxy-windows-amd64.exe
+            installer/install.sh
+            installer/install.ps1
+            blocklist/blocklist.txt
+            version.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

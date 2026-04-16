@@ -1,0 +1,6 @@
+https://filters.adtidy.org/extension/chromium/filters/2.txt
+https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt
+https://secure.fanboy.co.nz/fanboy-annoyance.txt
+https://phishing.army/download/phishing_army_blocklist_extended.txt
+https://urlhaus.abuse.ch/downloads/hostfile/
+https://big.oisd.nl/domainswild

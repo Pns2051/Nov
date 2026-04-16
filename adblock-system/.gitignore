@@ -1,0 +1,6 @@
+dist/
+*.pem
+*.exe
+*.log
+proxy/adblock-proxy
+blocklist/blocklist.txt
