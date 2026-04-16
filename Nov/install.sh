@@ -30,7 +30,7 @@ fi
 BINARY_FILENAME="$BINARY_NAME-$OS-$ARCH"
 
 download() {
-    local url_jsdelivr="https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@$VERSION/$1"
+    local url_jsdelivr="https://cdn.jsdelivr.net/gh/$GITHUB_USER/Nov@main/$1"
     local url_github="https://github.com/$GITHUB_USER/Nov/releases/$VERSION/download/$1"
     echo "Downloading $1..."
     curl -fsSL --connect-timeout 10 --max-time 60 "$url_jsdelivr" -o "$2" || \
